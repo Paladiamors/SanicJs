@@ -8,13 +8,13 @@ export const authSlice = createSlice({
     access_token_sigature: "",
   },
   reducers: {
-    setToken: (state, payload) => {
-      state.auth_token = payload.auth_token;
-      state.auth_token_sigature = payload.auth_token_sigature;
+    setToken: (state, action) => {
+      state.access_token = action.payload.access_token;
+      state.access_token_sigature = action.payload.access_token_sigature;
     },
     clearToken: (state) => {
-      state.auth_token = "";
-      state.auth_token_sigature = "";
+      state.access_token = "";
+      state.access_token_sigature = "";
     },
   },
 });
