@@ -3,6 +3,8 @@ from sanic_jwt import Initialize, protected
 from sanic.request import Request
 from sanic.response import json
 import json as json_
+from options import setup_options
+from cors import add_cors_headers
 
 
 async def authenticate(request):
@@ -15,6 +17,10 @@ Initialize(app,
            cookie_set=True,
            cookie_split=True,
            path_to_authenticate="/login")
+# Add OPTIONS handlers to any route that is missing it
+app.register_listener(setup_options, "before_server_start")
+# Fill in CORS headers
+app.register_middleware(add_cors_headers, "response")
 
 
 @app.route("/", methods=("GET", "POST"))
