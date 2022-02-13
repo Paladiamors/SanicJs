@@ -1,4 +1,4 @@
-import fetch from "../fetch";
+import fetch, { fetchJson } from "../fetch";
 import { setToken } from "../redux/authSlice";
 import store from "../redux/store";
 
@@ -29,36 +29,24 @@ export function splitToken(token) {
  */
 export function login(data) {
   const url = "api/auth/login";
-  return fetch(url, {
-    method: "POST",
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      if (data.access_token) {
-        const token = splitToken(data.access_token)
-        store.dispatch(setToken(token));
-        return token
-      }
-      return data;
-    });
+  return fetchJson(url, data).then((data) => {
+    if (data.access_token) {
+      const token = splitToken(data.access_token);
+      store.dispatch(setToken(token));
+      return token;
+    }
+    return data;
+  });
 }
 
 export async function add_user(data) {
   const url = "api/auth/add_user";
-  return fetch(url, {
-    method: "POST",
-    body: JSON.stringify(data),
-  }).then((response) => response.json());
+  return fetchJson(url, data);
 }
 
 export async function delete_user(data) {
   const url = "api/auth/delete_user";
-  return fetch(url, {
-    method: "POST",
-    body: JSON.stringify(data),
-  }).then((response) => response.json());
+  return fetchJson(url, data);
 }
 
 export async function protected_(data) {

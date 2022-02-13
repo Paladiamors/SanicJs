@@ -3,6 +3,7 @@ from sanic_jwt import Initialize, protected, exceptions
 from sanic.request import Request
 from sanic.response import json
 from blueprints.auth import bp as auth
+from blueprints.post import bp as post
 import json as json_
 from options import setup_options
 from cors import add_cors_headers
@@ -47,4 +48,5 @@ def protected(response):
 
 if __name__ == "__main__":
     app.blueprint(auth)
+    app.blueprint(post)
     app.run(auto_reload=True, port=4000)
