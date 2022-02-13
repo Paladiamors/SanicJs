@@ -2,3 +2,4 @@
 .yarnrc.yml
 pybin
 node_modules
+*.pyc

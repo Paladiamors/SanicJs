@@ -1,5 +1,5 @@
 import store from "./redux/store.js";
-import fetch_ from "node-fetch";
+// import fetch from "node-fetch";
 import { setToken, clearToken } from "./redux/authSlice.js";
 
 // make the dev prefix configurable
@@ -20,9 +20,9 @@ function parseCookies(response) {
 
 // if auth tokens are set, automatically adds them when in dev mode
 // otherwise just passes through a fetch request
-export default function fetch(input, init = {}) {
+export default function fetch_(input, init = {}) {
   if (process.env.NODE_ENV === "production") {
-    return fetch_(input, init);
+    return fetch(input, init);
   } else {
     const state = store.getState();
     if (state.auth.access_token && state.auth.access_token_sigature) {
@@ -32,7 +32,7 @@ export default function fetch(input, init = {}) {
       init.headers = { ...init.headers, ...auth };
     }
     const url = input[0] === "/" ? devPrefix + input : devPrefix + "/" + input;
-    return fetch_(url, init);
+    return fetch(url, init);
   }
 }
 

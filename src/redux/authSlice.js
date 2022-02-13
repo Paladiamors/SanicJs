@@ -1,11 +1,11 @@
-import pkg from "@reduxjs/toolkit";
-const createSlice = pkg.createSlice;
+import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
-    access_token: "",
-    access_token_sigature: "",
+    access_token: Cookies.get("access_token") || "",
+    access_token_sigature: Cookies.get("access_token_signature") || "",
   },
   reducers: {
     setToken: (state, action) => {

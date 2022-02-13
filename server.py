@@ -2,6 +2,7 @@ from sanic import Sanic
 from sanic_jwt import Initialize, protected
 from sanic.request import Request
 from sanic.response import json
+from blueprints.auth import bp as auth
 import json as json_
 from options import setup_options
 from cors import add_cors_headers
@@ -16,6 +17,7 @@ Initialize(app,
            authenticate=authenticate,
            cookie_set=True,
            cookie_split=True,
+           url_prefix="/api/auth",
            path_to_authenticate="/login")
 # Add OPTIONS handlers to any route that is missing it
 app.register_listener(setup_options, "before_server_start")
@@ -41,4 +43,5 @@ def protected(response):
 
 
 if __name__ == "__main__":
+    app.blueprint(auth)
     app.run(auto_reload=True, port=4000)
