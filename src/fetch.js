@@ -25,9 +25,9 @@ export default function fetch_(input, init = {}) {
     return fetch(input, init);
   } else {
     const state = store.getState();
-    if (state.auth.access_token && state.auth.access_token_sigature) {
+    if (state.auth.access_token && state.auth.access_token_signature) {
       const auth = {
-        cookie: `access_token=${state.auth.access_token}; access_token_signature=${state.auth.access_token_sigature}`,
+        cookie: `access_token=${state.auth.access_token}; access_token_signature=${state.auth.access_token_signature}`,
       };
       init.headers = { ...init.headers, ...auth };
     }

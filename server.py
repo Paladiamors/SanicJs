@@ -1,5 +1,5 @@
 from sanic import Sanic
-from sanic_jwt import Initialize, protected
+from sanic_jwt import Initialize, protected, exceptions
 from sanic.request import Request
 from sanic.response import json
 from blueprints.auth import bp as auth
@@ -9,7 +9,10 @@ from cors import add_cors_headers
 
 
 async def authenticate(request):
-    return {"user_id": 1}
+    info = json_.loads(request.body)
+    if info["username"] == 1:
+        return {"user_id": 1}
+    raise exceptions.AuthenticationFailed("Invalid credentials")
 
 
 app = Sanic("main")

@@ -1,6 +1,5 @@
 import { add_user, delete_user, login, protected_ } from "./auth";
 import store from "../redux/store";
-import authReducer from "../redux/authSlice";
 import jwt_decode from "jwt-decode";
 
 test("delete_user", (done) => {
@@ -18,7 +17,7 @@ test("add_user", (done) => {
 });
 
 test("login", (done) => {
-  login({})
+  login({ username: 1 })
     .then((cookies) => {
       expect(cookies).toEqual(store.getState().auth);
       return cookies;
@@ -35,4 +34,11 @@ test("login", (done) => {
       expect(decoded["user_id"]).toEqual(1);
       done();
     });
+});
+
+test("login fail", (done) => {
+  login({ username: 2 }).then((cookies) => {
+    expect(cookies.exception).toEqual("AuthenticationFailed");
+    done();
+  });
 });

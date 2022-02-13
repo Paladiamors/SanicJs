@@ -25,5 +25,8 @@
   "devDependencies": {
     "eslint": "^8.0.0",
     "eslint-config-react-app": "^7.0.0"
+  },
+  "jest": {
+    "timeout": 1500
   }
 }

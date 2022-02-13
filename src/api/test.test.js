@@ -9,6 +9,5 @@ test("object manipulation", () => {
     b: 2,
     c: 3,
   };
-
   expect(obj).toEqual(obj2);
 });
